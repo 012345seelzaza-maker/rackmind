@@ -1,0 +1,41 @@
+
+version: '3.8'
+services:
+  influxdb:
+    image: influxdb:2.7
+    ports:
+      - "8086:8086"
+    volumes:
+      - influxdb_data:/var/lib/influxdb2
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=admin
+      - DOCKER_INFLUXDB_INIT_PASSWORD=rackmind123
+      - DOCKER_INFLUXDB_INIT_ORG=rackmind
+      - DOCKER_INFLUXDB_INIT_BUCKET=dcim
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=rackmind-token-123
+
+  grafana:
+    image: grafana/grafana:10.2.0
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/dashboard.json:/etc/grafana/provisioning/dashboards/dashboard.json
+    depends_on:
+      - influxdb
+
+  rackmind-agent:
+    build: .
+    environment:
+      - INFLUX_URL=http://influxdb:8086
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - SLACK_BOT_TOKEN=${SLACK_BOT_TOKEN}
+    depends_on:
+      - influxdb
+    volumes:
+      - .:/app
+
+volumes:
+  influxdb_data:
+  grafana_data:

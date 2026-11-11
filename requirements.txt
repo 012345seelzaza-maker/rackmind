@@ -1,0 +1,10 @@
+influxdb-client
+slack-bolt
+openai
+pysnmp
+redfish
+reportlab
+scikit-learn
+python-dotenv
+discord.py
+proxmoxer

@@ -1,0 +1,27 @@
+{
+  "title": "RackMind - AI DCIM",
+  "panels": [
+    {
+      "type": "timeseries",
+      "title": "PUE Real-time",
+      "unit": "PUE"
+    },
+    {
+      "type": "timeseries",
+      "title": "Temperature \u00b0C",
+      "unit": "celsius"
+    },
+    {
+      "type": "barchart",
+      "title": "Power Usage kW - IT vs Total"
+    },
+    {
+      "type": "stat",
+      "title": "Wasted Cost Today (USD)"
+    },
+    {
+      "type": "stat",
+      "title": "Predicted Failures"
+    }
+  ]
+}
